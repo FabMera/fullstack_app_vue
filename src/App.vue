@@ -3,24 +3,40 @@
         <div v-if="loading" class="loading-modal">
             <Loading />
         </div>
+        <div class="modal-background" v-if="showPerfil"  >
+             <user-perfil  :usuario="usuario" @close="closePerfil" />
+        </div>
+       
         <Navbar v-if="$route.meta.showNavbar" />
         <router-view />
     </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapGetters, mapMutations, mapState } from "vuex";
 import Loading from "./components/Loading.vue";
 import Navbar from "./components/NavBar.vue";
+import UserPerfil from './components/users/UserPerfil.vue';
 
 export default {
     name: "App",
     components: {
         Loading,
         Navbar,
+        UserPerfil,
+    },
+    methods:{
+        ...mapMutations("usuarios", ["setShowPerfil"]),
+        closePerfil(){
+            this.setShowPerfil(false);
+        }
     },
 
     computed: {
-        ...mapState("usuarios", ["loading"]),
+        ...mapGetters("usuarios", ["getUsuario"]),
+        ...mapState("usuarios", ["loading", "showPerfil"]),
+        usuario() {
+            return this.getUsuario;
+        },
     },
     data() {
         return {};
@@ -40,5 +56,16 @@ export default {
     justify-content: center;
     align-items: center;
     z-index: 1000; /* Asegura que el overlay esté por encima de otros elementos */
+}
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

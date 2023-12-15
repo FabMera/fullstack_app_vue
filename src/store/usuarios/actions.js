@@ -4,7 +4,6 @@ import { clienteModyo, clienteSpring } from "@/api/cliente_axios";
 export const getUsuariosModyo = async ({ commit }, userEmail) => {
     try {
         const response = await clienteModyo.get();
-        console.log(response.data.entries);
         const usuariosModyo = response.data.entries;
         commit("setUsuarios", usuariosModyo); //Guarda los usuarios en el state para poder acceder a ellos
         // Busca al usuario con el mismo email

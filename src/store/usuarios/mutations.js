@@ -22,3 +22,9 @@ export const setLoading = (state, payload) => {
 export const setIsAuthenticated = (state, payload) => {
     state.isAuthenticated = payload;
 };
+export const togglePerfil = (state) => {
+    state.showPerfil = !state.showPerfil;
+}
+export const setShowPerfil = (state, show) => {
+    state.showPerfil = show
+}

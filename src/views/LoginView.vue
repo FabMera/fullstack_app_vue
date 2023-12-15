@@ -18,6 +18,7 @@ export default {
                 email: "",
                 password: "",
             },
+            
         };
     },
     computed: {
@@ -25,7 +26,21 @@ export default {
     },
     methods: {
         ...mapActions("usuarios", ["login"]),
+        
         async procesarLogin() {
+            
+            if(this.user.email === "" || this.user.password === "") {
+                alert("Debe ingresar un email y un password");
+                return;
+            }
+
+            // Expresión regular para validar correo electrónico
+            const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+            if (!emailRegex.test(this.user.email)) {
+                alert("Debe ingresar un email válido");
+                return;
+            }
+            
             await this.login(this.user);
             console.log(this.isAuthenticated);
             if (this.errorLogin) {

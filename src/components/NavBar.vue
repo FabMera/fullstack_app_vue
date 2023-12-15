@@ -3,14 +3,13 @@
         <ul class="nav justify-content-end">
             <li class="nav-item">
                 <router-link class="nav-link" to="/"
-                    ><i class="fa-solid fa-house mx-2"></i
-                    >Home</router-link
+                    ><i class="fa-solid fa-house mx-2"></i>Home</router-link
                 >
             </li>
             <li class="nav-item">
-                <router-link class="nav-link" to="/mi-perfil"
-                    ><i class="fa-solid fa-user mx-2"></i>Mi Perfil</router-link
-                >
+                <a role='button' class="nav-link " @click="togglePerfil">
+                    <i class="fa-solid fa-user mx-2"></i>Mi Perfil
+                </a>
             </li>
             <li class="nav-item">
                 <router-link class="nav-link" to="/tareas"
@@ -26,31 +25,31 @@
 </template>
 
 <script>
-import { mapActions,mapState } from 'vuex';
-    export default {
-        name: "NavBar",
-        computed: {
-            ...mapState("usuarios", ["isAuthenticated"]),
+import { mapActions, mapMutations, mapState } from "vuex";
+export default {
+    name: "NavBar",
+    computed: {
+        ...mapState("usuarios", ["isAuthenticated"]),
+    },
+    methods: {
+        ...mapActions("usuarios", ["logout"]),
+        ...mapMutations("usuarios", ["togglePerfil"]),
+        logoutSession() {
+            this.logout();
+            this.$router.push("/");
         },
-        methods: {
-            ...mapActions("usuarios", ["logout"]),
-            logoutSession() {
-                this.logout();
-                this.$router.push("/");
-            },
-        },
-        
-    }
+    },
+};
 </script>
 
 <style lang="css" scoped>
 .nav-link {
-    transition: color 0.3s ease, border-bottom 0.2s ease; 
+    transition: color 0.3s ease, border-bottom 0.2s ease;
     margin: 5px;
 }
 
 .nav-link:hover {
-    color: rgb(78, 80, 200); 
-    border-bottom: 3px solid #474aa3; 
+    color: rgb(78, 80, 200);
+    border-bottom: 3px solid #474aa3;
 }
 </style>

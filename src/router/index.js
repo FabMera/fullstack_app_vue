@@ -28,7 +28,7 @@ const routes = [
             requiresAuth: true,
             showNavbar: true
         }
-    },
+    }
 ]
 
 const router = createRouter({
