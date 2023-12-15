@@ -40,7 +40,7 @@ export default {
                 alert("Debe ingresar un email válido");
                 return;
             }
-            
+
             await this.login(this.user);
             console.log(this.isAuthenticated);
             if (this.errorLogin) {

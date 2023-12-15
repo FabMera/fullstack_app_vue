@@ -44,12 +44,14 @@ export default {
 
 <style lang="css" scoped>
 .nav-link {
-    transition: color 0.3s ease, border-bottom 0.2s ease;
+    transition: color 0.3s ease, border-bottom 0.5s ease;
     margin: 5px;
+    border-bottom: 3px solid transparent;
 }
 
 .nav-link:hover {
-    color: rgb(78, 80, 200);
+    color: rgb(98, 100, 204);
     border-bottom: 3px solid #474aa3;
 }
+
 </style>

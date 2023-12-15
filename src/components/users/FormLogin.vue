@@ -30,10 +30,15 @@
             <i class="fa-solid fa-circle-exclamation"></i>
             {{ errorMessage }}
         </p>
+        <p class="register-prompt">
+        ¿No tienes una cuenta? <router-link to="/register">Regístrate aquí</router-link>
+    </p>
     </form>
+    
 </template>
 
 <script>
+import router from "@/router";
 import { mapState } from "vuex";
 export default {
     name: "FormLogin",
@@ -54,15 +59,17 @@ export default {
             this.$emit("handle-submit");
         },
     },
+    components: { router }
 };
 </script>
 
 <style lang="css" scoped>
 .form {
+    position: relative;
     background-color: #15172b;
     border-radius: 20px;
     box-sizing: border-box;
-    height: 480px;
+    height: 550px;
     padding: 20px;
     width: 320px;
 }
@@ -174,4 +181,19 @@ export default {
 .custom-error {
     font-size: 0.75rem;
 }
+
+.register-prompt {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 14px;
+    color: rgb(165, 163, 163);
+}
+.register-prompt a {
+    color: #3498db;
+    text-decoration: none;
+}
+
 </style>

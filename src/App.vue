@@ -3,10 +3,10 @@
         <div v-if="loading" class="loading-modal">
             <Loading />
         </div>
-        <div class="modal-background" v-if="showPerfil"  >
-             <user-perfil  :usuario="usuario" @close="closePerfil" />
+        <div class="modal-background" v-if="showPerfil">
+            <user-perfil :usuario="usuario" @close="closePerfil" />
         </div>
-       
+
         <Navbar v-if="$route.meta.showNavbar" />
         <router-view />
     </div>
@@ -15,7 +15,7 @@
 import { mapGetters, mapMutations, mapState } from "vuex";
 import Loading from "./components/Loading.vue";
 import Navbar from "./components/NavBar.vue";
-import UserPerfil from './components/users/UserPerfil.vue';
+import UserPerfil from "./components/users/UserPerfil.vue";
 
 export default {
     name: "App",
@@ -24,11 +24,11 @@ export default {
         Navbar,
         UserPerfil,
     },
-    methods:{
+    methods: {
         ...mapMutations("usuarios", ["setShowPerfil"]),
-        closePerfil(){
+        closePerfil() {
             this.setShowPerfil(false);
-        }
+        },
     },
 
     computed: {
@@ -46,16 +46,16 @@ export default {
 
 <style lang="css">
 .loading-modal {
-    position: fixed; /* Posiciona el elemento de manera absoluta respecto a la ventana */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Asegura que el overlay esté por encima de otros elementos */
+    z-index: 1000;
 }
 .modal-background {
     position: fixed;

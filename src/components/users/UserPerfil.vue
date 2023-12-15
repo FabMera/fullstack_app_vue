@@ -7,14 +7,10 @@
             ></i>
         </div>
 
-        <div class="card mb-3" style="max-width: 540px">
-            <div class="row g-0">
-                <div class="col-md-4">
-                    <img
-                        :src="usuario.fields.perfil"
-                        class="img-fluid rounded"
-                        alt=""
-                    />
+        <div v-if="usuario && usuario.fields" class="card mb-3">
+            <div class="row justify-content-center">
+                <div class="image-container mt-2">
+                    <img class="rounded" :src="usuario.fields.perfil" alt="" />
                 </div>
                 <div class="card-body">
                     <p class="card-title">
@@ -33,6 +29,9 @@
                     </p>
                 </div>
             </div>
+        </div>
+        <div v-else class="card-no-encontrado">
+            <p class="usuario-no-encontrado">No existen datos para mostrar!</p>
         </div>
     </aside>
 </template>
@@ -62,17 +61,43 @@ export default {
     position: fixed;
     right: 0;
     top: 0;
-    width: 350px; /* Ajusta esto a lo que necesites */
+    width: 350px;
     height: 90vh;
     overflow: auto;
-    background-color: #fff; /* Ajusta esto a lo que necesites */
-    border-left: 1px solid #ccc; /* Ajusta esto a lo que necesites */
-    padding: 20px; /* Ajusta esto a lo que necesites */
-    z-index: 1000; /* Ajusta esto a lo que necesites */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 1500;
 }
 .close-icon {
-    font-size: 2em; 
+    font-size: 2em;
     color: rgb(78, 78, 201);
     cursor: pointer;
+}
+
+.image-container {
+    align-items: center;
+    height: 200px;
+    width: 200px;
+}
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.usuario-no-encontrado {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.card-no-encontrado {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
 }
 </style>

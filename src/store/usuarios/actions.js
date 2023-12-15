@@ -63,5 +63,7 @@ export const logout = ({ commit }) => {
     commit("setUsuarioLogueado", {});
     commit("setToken", '');
     commit("setIsAuthenticated", false);
+    commit("setUsuario", {});
     console.log("Usuario deslogueado");
 }
+
