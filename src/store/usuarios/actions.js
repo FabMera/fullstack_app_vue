@@ -47,7 +47,13 @@ export const login = async ({ dispatch, commit }, credentials) => {
         console.log(error.response.data);
         commit("setIsAuthenticated", false);
         commit("setErrorLogin", true);
-        commit("setErrorMessage", error.response.data);
+
+        if (error.response && typeof error.response.data === "object") {
+            commit("setErrorMessage", error.response.data);
+        } else {
+            commit("setErrorMessage", "Error de conexión con el servidor");
+        }
+
         return error;
 
     } finally {

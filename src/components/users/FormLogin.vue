@@ -18,10 +18,17 @@
             <input
                 v-model="user.password"
                 placeholder="Ingresa tu password"
-                type="password"
+                :type="showPassword ? 'text' : 'password'"
                 class="input"
                 id="password"
             />
+            <div class="icon-container">
+                <i class="fa-solid fa-lock icon"></i>
+                <i
+                    :class="eyeIconClass"
+                    @click="showPassword = !showPassword"
+                ></i>
+            </div>
             <div class="cut"></div>
             <label class="iLabel" for="password">Password</label>
         </div>
@@ -31,10 +38,10 @@
             {{ errorMessage }}
         </p>
         <p class="register-prompt">
-        ¿No tienes una cuenta? <router-link to="/register">Regístrate aquí</router-link>
-    </p>
+            ¿No tienes una cuenta?
+            <router-link to="/register">Regístrate aquí</router-link>
+        </p>
     </form>
-    
 </template>
 
 <script>
@@ -43,7 +50,9 @@ import { mapState } from "vuex";
 export default {
     name: "FormLogin",
     data() {
-        return {};
+        return {
+            showPassword: false,
+        };
     },
     props: {
         user: {
@@ -53,13 +62,18 @@ export default {
     },
     computed: {
         ...mapState("usuarios", ["errorLogin", "errorMessage"]),
+        eyeIconClass() {
+            return this.showPassword
+                ? "fa-solid fa-eye-slash icon"
+                : "fa-solid fa-eye icon";
+        },
     },
     methods: {
         handleSubmit() {
             this.$emit("handle-submit");
         },
     },
-    components: { router }
+    components: { router },
 };
 </script>
 
@@ -91,9 +105,21 @@ export default {
 }
 
 .input-container {
+    position: relative;
     height: 50px;
     position: relative;
     width: 100%;
+}
+.icon-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.icon {
+    margin-left: 5px;
+    cursor: pointer;
+    color: #706d6d;
 }
 
 .ic1 {
@@ -195,5 +221,4 @@ export default {
     color: #3498db;
     text-decoration: none;
 }
-
 </style>

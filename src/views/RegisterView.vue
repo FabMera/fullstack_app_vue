@@ -7,7 +7,6 @@
             :errorRegister="errorRegister"
             @handle-register="procesarRegistro"
             :user="user"
-           
         />
     </div>
 </template>
@@ -33,11 +32,16 @@ export default {
     methods: {
         async procesarRegistro() {
             try {
-                if(this.user.username === "" || this.user.email === "" || this.user.password === "") {
+                if (
+                    this.user.username === "" ||
+                    this.user.email === "" ||
+                    this.user.password === ""
+                ) {
                     alert("Debe ingresar un username, un email y un password");
                     return;
                 }
-                const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+                const emailRegex =
+                    /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
                 if (!emailRegex.test(this.user.email)) {
                     alert("Debe ingresar un email válido");
                     return;
@@ -48,10 +52,13 @@ export default {
                 this.$router.push({ name: "login" });
             } catch (error) {
                 console.log(error);
-                if (error) {
+                if (
+                    (error && typeof error === "string") ||
+                    error === "object"
+                ) {
                     this.errorRegister = error;
                 } else {
-                    this.errorRegister = "Error al registrar usuario";
+                    this.errorRegister = "Servidor no disponible";
                 }
             }
         },

@@ -18,11 +18,19 @@
         <div class="input-container ic2">
             <input
                 placeholder="Ingresa una contraseña"
-                type="password"
+                :type="showPassword ? 'text' : 'password'"
                 class="input"
                 id="password"
                 v-model="user.password"
             />
+            <div class="icon-container">
+                <i class="fa-solid fa-lock icon"></i>
+                <i
+                    :class="eyeIconClass"
+                    @click="showPassword = !showPassword"
+                ></i>
+            </div>
+
             <div class="cut"></div>
             <label class="iLabel" for="password">Password</label>
         </div>
@@ -53,7 +61,9 @@
 export default {
     name: "FormRegister",
     data() {
-        return {};
+        return {
+            showPassword: false,
+        };
     },
     methods: {
         handleRegister() {
@@ -69,6 +79,13 @@ export default {
         errorRegister: {
             type: String,
             required: false,
+        },
+    },
+    computed: {
+        eyeIconClass() {
+            return this.showPassword
+                ? "fas fa-eye icon"
+                : "fas fa-eye-slash icon";
         },
     },
 };
@@ -102,11 +119,23 @@ export default {
 }
 
 .input-container {
+    position: relative;
     height: 50px;
     position: relative;
     width: 100%;
 }
 
+.icon-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.icon {
+    margin-left: 5px;
+    cursor: pointer;
+    color: #706d6d;
+}
 .ic1 {
     margin-top: 40px;
     margin-bottom: 50px;
