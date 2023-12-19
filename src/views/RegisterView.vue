@@ -52,10 +52,8 @@ export default {
                 this.$router.push({ name: "login" });
             } catch (error) {
                 console.log(error);
-                if (
-                    (error && typeof error === "string") ||
-                    error === "object"
-                ) {
+                if 
+                    (error && typeof error === "object") {
                     this.errorRegister = error;
                 } else {
                     this.errorRegister = "Servidor no disponible";
