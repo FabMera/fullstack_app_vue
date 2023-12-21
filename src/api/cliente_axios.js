@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { modyoUrl, backSpring } from './backend.config';
+import { modyoUrl, backSpring,firebaseUrl } from './backend.config';
 
 const clienteModyo = axios.create({
     baseURL: modyoUrl,
@@ -15,6 +15,11 @@ const clienteSpring = axios.create({
     }
 });
 
+const clienteFirebase = axios.create({
+    baseURL:firebaseUrl,
+     
+});
 
 
-export { clienteModyo, clienteSpring }
+
+export { clienteModyo, clienteSpring, clienteFirebase }

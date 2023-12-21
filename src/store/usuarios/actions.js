@@ -1,10 +1,13 @@
 import { clienteModyo, clienteSpring } from "@/api/cliente_axios";
 
+
 //Esta funcion llama a la api de modyo y obtiene las entradas de usuarios email,nombre,tareas etc..
-export const getUsuariosModyo = async ({ commit }, userEmail) => {
+export const getUsuariosModyo = async ({ commit, state }, userEmail) => {
     try {
+        clienteModyo.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
         const response = await clienteModyo.get();
         const usuariosModyo = response.data.entries;
+        console.log(usuariosModyo);
         commit("setUsuarios", usuariosModyo); //Guarda los usuarios en el state para poder acceder a ellos
         // Busca al usuario con el mismo email
         const usuario = usuariosModyo.find(usuario => usuario.fields.email === userEmail);
@@ -31,15 +34,28 @@ export const login = async ({ dispatch, commit }, credentials) => {
         commit('setLoading', true);
         commit('setErrorLogin', false);
         const response = await clienteSpring.post('/users/login', credentials);
-        const userEmail = response.data.email;
-        /*  const userToken = response.data.token; */
+        const userToken = response.data.token;
+        localStorage.setItem('token', userToken);
+
+
         const user = response.data;
         console.log(user);
-        console.log(userEmail);
-        /* console.log(userToken); */
+        console.log(userToken);
         commit("setUsuarioLogueado", user);
-        /* commit("setToken", userToken); */
+        commit("setToken", userToken);
         commit("setIsAuthenticated", true);
+
+        //Decodifica el token y obtiene el email del usuario
+        console.log("Decodificando token");
+        const base64Url = userToken.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        const decodedToken = JSON.parse(jsonPayload);
+        const userEmail = decodedToken.email;
+        console.log(userEmail);
         await dispatch("getUsuariosModyo", userEmail);
         return userEmail;
     } catch (error) {
@@ -48,10 +64,10 @@ export const login = async ({ dispatch, commit }, credentials) => {
         commit("setIsAuthenticated", false);
         commit("setErrorLogin", true);
 
-        if (error.response && typeof error.response.data === "object") {
+        if (error) {
             commit("setErrorMessage", error.response.data);
         } else {
-            commit("setErrorMessage", "Error de conexión con el servidor");
+            commit("setErrorMessage", "Error de conexión");
         }
 
         return error;
@@ -70,6 +86,9 @@ export const logout = ({ commit }) => {
     commit("setToken", '');
     commit("setIsAuthenticated", false);
     commit("setUsuario", {});
+    commit("setToken", '');
+    localStorage.removeItem('userToken');
+    console.log("token borrado")
     console.log("Usuario deslogueado");
 }
 

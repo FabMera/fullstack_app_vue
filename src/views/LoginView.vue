@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         ...mapActions("usuarios", ["login"]),
-        
+
         async procesarLogin() {
             
             if(this.user.email === "" || this.user.password === "") {

@@ -14,6 +14,7 @@
 <script>
 import { register } from "@/api/api.service.js";
 import FormRegister from "@/components/users/FormRegister.vue";
+import { emailRegex } from "../Helpers/helperFunctions.js";
 export default {
     name: "RegisterView",
     components: {
@@ -40,8 +41,7 @@ export default {
                     alert("Debe ingresar un username, un email y un password");
                     return;
                 }
-                const emailRegex =
-                    /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+                // Expresión regular para validar correo electrónico
                 if (!emailRegex.test(this.user.email)) {
                     alert("Debe ingresar un email válido");
                     return;
@@ -52,11 +52,11 @@ export default {
                 this.$router.push({ name: "login" });
             } catch (error) {
                 console.log(error);
-                if 
-                    (error && typeof error === "object") {
+                if (error){
                     this.errorRegister = error;
                 } else {
                     this.errorRegister = "Servidor no disponible";
+                   
                 }
             }
         },

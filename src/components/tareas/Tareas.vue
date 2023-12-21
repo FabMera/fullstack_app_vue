@@ -21,30 +21,49 @@
                         data-bs-parent="#accordionExample"
                     >
                         <div class="accordion-body">
-                            {{ tarea.fields.tareas_asignadas }}
+                            <ul>
+                                <li
+                                    v-for="(
+                                        tareaAsignada, index
+                                    ) in tareasAsignadas"
+                                    :key="index"
+                                >
+                                    {{ tareaAsignada }}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button
                             class="accordion-button"
                             type="button"
                             data-bs-toggle="collapse"
-                            data-bs-target="#collapseOne"
+                            data-bs-target="#collapseTwo"
                             aria-expanded="true"
-                            aria-controls="collapseOne"
+                            aria-controls="collapseTwo"
                         >
                             Proyectos Asignados :
                         </button>
                     </h2>
                     <div
-                        id="collapseOne"
+                        id="collapseTwo"
                         class="accordion-collapse collapse show"
                         data-bs-parent="#accordionExample"
                     >
                         <div class="accordion-body">
-                            {{ tarea.fields.proyectos_colaborador }}
+                            <ul>
+                                <li
+                                    v-for="(
+                                        proyectoColaborador, index
+                                    ) in proyectoColaborador"
+                                    :key="index"
+                                >
+                                    {{ proyectoColaborador }}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -68,6 +87,20 @@ export default {
         tarea: {
             type: Object,
             required: true,
+        },
+    },
+    computed: {
+        tareasAsignadas() {
+            return this.tarea.fields.tareas_asignadas
+                .split("-")
+                .filter(Boolean)
+                .map((tareaAsignadas) => tareaAsignadas.trim());
+        },
+        proyectoColaborador() {
+            return this.tarea.fields.proyectos_colaborador
+                .split("-")
+                .filter(Boolean)
+                .map((proyectoColaborador) => proyectoColaborador.trim());
         },
     },
 };

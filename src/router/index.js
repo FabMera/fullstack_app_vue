@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import store from '../store/index.js'
+
 const routes = [
     {
         path: '/',
@@ -28,13 +29,22 @@ const routes = [
             requiresAuth: true,
             showNavbar: true
         }
+    },
+    {
+        path: '/bitacora',
+        name: 'bitacora',
+        component: () => import('../views/BitacoraView.vue'),
+        meta: {
+            requiresAuth: true,
+            showNavbar: true
+        }
     }
-]
+];
 
 const router = createRouter({
     history: createWebHashHistory(),
     routes
-})
+});
 
 
 router.beforeEach((to, from, next) => {

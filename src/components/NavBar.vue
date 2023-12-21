@@ -7,7 +7,7 @@
                 >
             </li>
             <li class="nav-item">
-                <a role='button' class="nav-link " @click="togglePerfil">
+                <a role="button" class="nav-link" @click="togglePerfil">
                     <i class="fa-solid fa-user mx-2"></i>Mi Perfil
                 </a>
             </li>
@@ -15,6 +15,12 @@
                 <router-link class="nav-link" to="/tareas"
                     ><i class="fa-solid fa-briefcase mx-2"></i
                     >Tareas</router-link
+                >
+            </li>
+            <li class="nav-item">
+                <router-link class="nav-link" to="/bitacora"
+                    ><i class="fa-solid fa-clipboard-check mx-2"></i
+                    >Bitacora</router-link
                 >
             </li>
             <a class="nav-link mx-2" href="#" @click="logoutSession">
@@ -53,5 +59,4 @@ export default {
     color: rgb(98, 100, 204);
     border-bottom: 3px solid #474aa3;
 }
-
 </style>
