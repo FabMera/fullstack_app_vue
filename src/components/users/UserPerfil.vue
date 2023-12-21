@@ -60,14 +60,32 @@ export default {
 .perfil-aside {
     position: fixed;
     right: 0;
-    top: 0;
+    top: 10%;
     width: 350px;
-    height: 90vh;
+    height: 100vh;
     overflow: auto;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
-    z-index: 1500;
+    z-index: 20000;
+  
+}
+@media (max-width: 768px) {
+    .perfil-aside {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 350px;
+        height: 490px;
+        z-index: 1500;
+        background-color: #fff;
+        overflow: auto;
+        padding: 20px;
+        margin-top: 68px;
+    }
 }
 .close-icon {
     font-size: 2em;

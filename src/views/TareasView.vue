@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="mb-3 mt-3">Tareas y <span>Proyectos</span></h1>
+        <h1 class="mb-3 mt-3 text-center">Tareas y <span>Proyectos</span></h1>
         <Tareas v-if="!showPerfil" :tarea="tarea"/>
     </div>
 </template>
