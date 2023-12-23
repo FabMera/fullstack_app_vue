@@ -1,5 +1,5 @@
 <template>
-    <aside class="perfil-aside">
+    <aside class="perfil-aside" :class="{ 'show-perfil': showPerfil }">
         <div class="d-flex justify-content-end mb-3">
             <i
                 @click="cerrarPerfil"
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: "UserPerfil",
     props: {
@@ -53,22 +54,32 @@ export default {
             this.$emit("close", this.cerrarPerfil);
         },
     },
+    computed: {
+        ...mapState({
+            showPerfil: (state) => state.usuarios.showPerfil,
+        }),
+        
+    },
 };
 </script>
 
 <style lang="css" scoped>
 .perfil-aside {
     position: fixed;
-    right: 0;
-    top: 10%;
-    width: 350px;
+    top: 0%;
+    right: -300px;
+    transition: 0.8s ease-in-out;
+    width: 300px;
     height: 100vh;
     overflow: auto;
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
-    z-index: 20000;
+   
   
+}
+.perfil-aside.show-perfil{
+    right: 0;
 }
 @media (max-width: 768px) {
     .perfil-aside {
@@ -91,6 +102,7 @@ export default {
     font-size: 2em;
     color: rgb(78, 78, 201);
     cursor: pointer;
+    
 }
 
 .image-container {

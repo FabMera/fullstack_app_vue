@@ -81,7 +81,8 @@ export default {
     display: none;
     flex-direction: column;
     justify-content: space-around;
-    width: 2rem;
+    align-items: center;
+    width: 3rem;
     height: 2rem;
     cursor: pointer;
 }
@@ -94,14 +95,15 @@ export default {
 }
 .navbar {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
     padding: 0 2rem;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     background-color: transparent;
+    transition: height 0.5s ease-in-out;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     .menu-icon {
         display: flex;
     }
@@ -109,9 +111,7 @@ export default {
     ul {
         height: 0;
         display: none;
-        transition: height 2.0s ease;
         overflow: hidden;
-       
     }
 
     ul.show-menu {
@@ -126,8 +126,5 @@ export default {
         justify-content: space-between;
         padding: 0%;
     }
- 
-    
 }
-
 </style>

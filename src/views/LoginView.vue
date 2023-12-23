@@ -9,7 +9,9 @@
 
 <script>
 import FormLogin from "@/components/users/FormLogin.vue";
-import { mapActions, mapState } from "vuex";
+
+import { mapActions, mapMutations, mapState } from "vuex";
+
 export default {
     name: "LoginView",
     data() {
@@ -18,18 +20,37 @@ export default {
                 email: "",
                 password: "",
             },
-            
+            authCheckedCompleted: false,
         };
     },
+    created() {
+        const token = localStorage.getItem("token");
+        const usuarioLogin = JSON.parse(localStorage.getItem("user_back"));
+
+        if (token && usuarioLogin) {
+            this.setToken(token);
+            this.setIsAuthenticated(true);
+            this.setUsuario(usuarioLogin);
+        }
+      
+        if (this.isAuthenticated) {
+            this.$router.push({ name: "tareas" });
+        }
+    },
+
     computed: {
         ...mapState("usuarios", ["isAuthenticated", "errorLogin"]),
     },
     methods: {
         ...mapActions("usuarios", ["login"]),
+        ...mapMutations("usuarios", [
+            "setToken",
+            "setIsAuthenticated",
+            "setUsuario",
+        ]),
 
         async procesarLogin() {
-            
-            if(this.user.email === "" || this.user.password === "") {
+            if (this.user.email === "" || this.user.password === "") {
                 alert("Debe ingresar un email y un password");
                 return;
             }

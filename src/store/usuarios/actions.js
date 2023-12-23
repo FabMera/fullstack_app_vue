@@ -4,9 +4,9 @@ import { clienteModyo, clienteSpring } from "@/api/cliente_axios";
 //Esta funcion llama a la api de modyo y obtiene las entradas de usuarios email,nombre,tareas etc..
 export const getUsuariosModyo = async ({ commit, state }, userEmail) => {
     try {
-        clienteModyo.defaults.headers.common['Authorization'] = `Bearer ${state.token}`;
+        
         const response = await clienteModyo.get();
-        const usuariosModyo = response.data.entries;
+        const usuariosModyo = response.data.entries;//Obtiene los usuarios de la api de modyo 
         console.log(usuariosModyo);
         commit("setUsuarios", usuariosModyo); //Guarda los usuarios en el state para poder acceder a ellos
         // Busca al usuario con el mismo email
@@ -14,6 +14,7 @@ export const getUsuariosModyo = async ({ commit, state }, userEmail) => {
 
         if (usuario) {
             commit("setUsuario", usuario);
+            localStorage.setItem('user_back',JSON.stringify(usuario))
             console.log(usuario);
         } else {
             console.log("Usuario no encontrado");
@@ -35,13 +36,11 @@ export const login = async ({ dispatch, commit }, credentials) => {
         commit('setErrorLogin', false);
         const response = await clienteSpring.post('/users/login', credentials);
         const userToken = response.data.token;
+        const user = response.data;
         localStorage.setItem('token', userToken);
 
-
-        const user = response.data;
         console.log(user);
         console.log(userToken);
-        commit("setUsuarioLogueado", user);
         commit("setToken", userToken);
         commit("setIsAuthenticated", true);
 
@@ -55,6 +54,12 @@ export const login = async ({ dispatch, commit }, credentials) => {
 
         const decodedToken = JSON.parse(jsonPayload);
         const userEmail = decodedToken.email;
+        const userRol = decodedToken.rol;
+        const userUsername = decodedToken.username;
+        const usuarioLogueado = {userEmail,userRol,userUsername};
+        console.log(usuarioLogueado);
+        commit("setUsuarioLogueado", usuarioLogueado);
+        localStorage.setItem('usuarioLogueado',JSON.stringify(usuarioLogueado))
         console.log(userEmail);
         await dispatch("getUsuariosModyo", userEmail);
         return userEmail;
@@ -86,8 +91,8 @@ export const logout = ({ commit }) => {
     commit("setToken", '');
     commit("setIsAuthenticated", false);
     commit("setUsuario", {});
-    commit("setToken", '');
-    localStorage.removeItem('userToken');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user_back');
     console.log("token borrado")
     console.log("Usuario deslogueado");
 }
