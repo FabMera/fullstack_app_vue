@@ -38,7 +38,17 @@ const routes = [
             requiresAuth: true,
             showNavbar: true
         }
-    }
+    },
+    {
+        path: '/bitacora/:id',
+        name: 'bitacoraEdit',
+        component: () => import('../components/tareas/BitacoraModal.vue'),
+        meta: {
+            requiresAuth: true,
+            showNavbar: true
+        }
+    },
+
 ];
 
 const router = createRouter({

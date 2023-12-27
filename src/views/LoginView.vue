@@ -11,7 +11,7 @@
 import FormLogin from "@/components/users/FormLogin.vue";
 
 import { mapActions, mapMutations, mapState } from "vuex";
-
+import { emailRegex } from "../Helpers/helperFunctions.js";
 export default {
     name: "LoginView",
     data() {
@@ -32,7 +32,7 @@ export default {
             this.setIsAuthenticated(true);
             this.setUsuario(usuarioLogin);
         }
-      
+
         if (this.isAuthenticated) {
             this.$router.push({ name: "tareas" });
         }
@@ -56,14 +56,12 @@ export default {
             }
 
             // Expresión regular para validar correo electrónico
-            const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
             if (!emailRegex.test(this.user.email)) {
                 alert("Debe ingresar un email válido");
                 return;
             }
 
             await this.login(this.user);
-            console.log(this.isAuthenticated);
             if (this.errorLogin) {
                 alert("Usuario y/o contraseña inválida");
             } else if (this.isAuthenticated) {

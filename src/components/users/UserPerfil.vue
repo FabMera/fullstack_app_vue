@@ -75,7 +75,6 @@ export default {
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
-   
   
 }
 .perfil-aside.show-perfil{
@@ -91,7 +90,6 @@ export default {
         transform: translate(-50%, -50%);
         width: 350px;
         height: 490px;
-        z-index: 1500;
         background-color: #fff;
         overflow: auto;
         padding: 20px;
@@ -102,7 +100,10 @@ export default {
     font-size: 2em;
     color: rgb(78, 78, 201);
     cursor: pointer;
-    
+    transition: color 0.3s ease;
+}
+.close-icon:hover {
+    color: rgb(44, 44, 155); 
 }
 
 .image-container {
