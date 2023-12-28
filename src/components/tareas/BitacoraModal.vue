@@ -1,7 +1,8 @@
 <template>
     <div class="modal rounded shadow">
         <form class="w-100 ">
-            <div class="d-flex justify-content-end mb-3 ">
+            
+            <div class="d-flex justify-content-end mb-5">
                 <i
                     @click="cerrarPerfil"
                     class="fa-solid fa-circle-xmark close-icon"
@@ -27,7 +28,7 @@
                     v-model="bitacora.descripcion"
                 ></textarea>
             </div>
-            <div class="mb-3">
+            <div class="mb-5">
                 <label for="date_finish" class="form-label"
                     >Fecha de Termino</label
                 >
@@ -38,7 +39,7 @@
                     v-model="bitacora.date_finish"
                 />
             </div>
-            <div class="mb-3 form-check">
+            <div v-if="isEditar" class="mb-3 form-check">
                 <input
                     type="checkbox"
                     class="form-check-input"
@@ -50,7 +51,7 @@
             <button
                 @click="agregarBitacora"
                 type="submit"
-                class="btn btn-primary w-100"
+                class="btn btn-primary w-100 mb-3"
             >
                 {{ isEditar ? "Editar" : "Agregar"  }}
             </button>
@@ -99,7 +100,7 @@ export default {
     top: 50%;
     left: 50%;
     width: 350px;
-    max-height: 500px;
+    max-height: 550px;
     transform: translate(-50%, -50%);
     background-color: white;
     display: flex;

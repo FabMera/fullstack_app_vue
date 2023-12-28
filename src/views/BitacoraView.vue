@@ -63,6 +63,7 @@ export default {
             },
             showModalbitacora: false,
             isEditing: false,
+            originalBitacora: null,
         };
     },
     mounted() {
@@ -139,6 +140,11 @@ export default {
             }
         },
         closeModal() {
+            if (this.isEditing) {
+                this.bitacora = { ...this.originalBitacora };
+            } else {
+                this.resetBitacora();
+            }
             this.showModalbitacora = false;
             this.$nextTick();
         },
