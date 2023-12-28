@@ -52,6 +52,7 @@ import BitacoraModal from "@/components/tareas/BitacoraModal.vue";
 
 export default {
     name: "BitacoraView",
+    emits: ["agregar-bitacora", "close", "editar-bitacora", "eliminar-bitacora"],
     data() {
         return {
             loading: true,
@@ -118,6 +119,7 @@ export default {
             this.showModalbitacora = true;
         },
         abrirModalBitacora() {
+            this.resetBitacora();
             this.isEditing = false;
             this.showModalbitacora = true;
         },
@@ -129,9 +131,11 @@ export default {
                 if (this.bitacora.id) {
                     await this.updateBitacoraEdit(this.bitacora);
                     this.showSuccessMessage(true);
+                    return;
                 } else {
                     await this.createBitacoraEntry();
                     this.showSuccessMessage(false);
+                    Swal.close();
                 }
                 this.resetBitacora();
             } catch (error) {
@@ -140,12 +144,8 @@ export default {
             }
         },
         closeModal() {
-            if (this.isEditing) {
-                this.bitacora = { ...this.originalBitacora };
-            } else {
-                this.resetBitacora();
-            }
             this.showModalbitacora = false;
+            this.isEditing = false;
             this.$nextTick();
         },
         resetBitacora() {
@@ -169,13 +169,13 @@ export default {
                     timer: 1500,
                     showConfirmButton: false,
                 });
-            }, 1500);
+            }, 1000);
         },
         showLoading() {
             Swal.fire({
                 title: "Espere por favor...",
                 allowOutsideClick: false,
-                onBeforeOpen: () => {
+                didOpen: () => {
                     Swal.showLoading();
                 },
             });
