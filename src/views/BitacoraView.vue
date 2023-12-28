@@ -2,7 +2,11 @@
     <div>
         <h1 class="mt-3 text-center mb-4 p-3">Bitacora y Avanzes</h1>
         <div v-if="!showPerfil && bitacorasFiltradas.length > 0">
-            <Bitacora :bitacorasFiltradas="bitacorasFiltradas" />
+            <Bitacora
+                :bitacorasFiltradas="bitacorasFiltradas"
+                @editar-bitacora="abrirModalEditar"
+                @eliminar-bitacora="eliminarBitacora"
+            />
         </div>
         <div
             class="mensaje"
@@ -26,7 +30,12 @@
         </div>
         <div v-if="showModalbitacora" @close="closeModal">
             <div class="overlay"></div>
-            <bitacora-modal @agregar-bitacora="agregarBitacora" :bitacora="bitacora" @close="closeModal" />
+            <bitacora-modal
+                @agregar-bitacora="agregarBitacora"
+                :bitacora="bitacora"
+                @close="closeModal"
+                :is-editar="isEditing"
+            />
         </div>
     </div>
 </template>
@@ -38,6 +47,7 @@ import { mapActions, mapMutations, mapState } from "vuex";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { Tooltip } from "bootstrap/dist/js/bootstrap.esm.min.js";
+import Swal from "sweetalert2";
 import BitacoraModal from "@/components/tareas/BitacoraModal.vue";
 
 export default {
@@ -52,6 +62,7 @@ export default {
                 estado: false,
             },
             showModalbitacora: false,
+            isEditing: false,
         };
     },
     mounted() {
@@ -71,7 +82,9 @@ export default {
         if (usuarioLogin) {
             this.setUsuarioLogueado(usuarioLogin);
         }
-        this.loadBitacora();
+        if (this.bitacoras.length === 0) {
+            this.loadBitacora();
+        }
     },
     components: {
         Bitacora,
@@ -91,27 +104,111 @@ export default {
         },
     },
     methods: {
-        ...mapActions("bitacora", ["loadBitacora", "createBitacora"]),
+        ...mapActions("bitacora", [
+            "loadBitacora",
+            "createBitacora",
+            "updateBitacoraEdit",
+            "deleteBitacora",
+        ]),
         ...mapMutations("usuarios", ["setUsuarioLogueado"]),
-        abrirModalBitacora() {
+        abrirModalEditar(bitacora) {
+            this.bitacora = bitacora;
+            this.isEditing = true;
             this.showModalbitacora = true;
-        },  
+        },
+        abrirModalBitacora() {
+            this.isEditing = false;
+            this.showModalbitacora = true;
+        },
         async agregarBitacora() {
-            
+            this.closeModal();
+            this.showLoading();
+
             try {
-                await this.createBitacora({
-                    ...this.bitacora,
-                    email_user: this.usuarioLogueado.userEmail,
-                });
-                console.log("Bitacora creada");
-                this.closeModal();
+                if (this.bitacora.id) {
+                    await this.updateBitacoraEdit(this.bitacora);
+                    this.showSuccessMessage(true);
+                } else {
+                    await this.createBitacoraEntry();
+                    this.showSuccessMessage(false);
+                }
+                this.resetBitacora();
             } catch (error) {
                 console.log(error);
+                Swal.close();
             }
         },
         closeModal() {
             this.showModalbitacora = false;
-            this.$router.push({ name: "bitacora" });
+            this.$nextTick();
+        },
+        resetBitacora() {
+            this.bitacora = {
+                date_create: "",
+                descripcion: "",
+                date_finish: "",
+                estado: false,
+            };
+        },
+        showSuccessMessage(isEditing) {
+            setTimeout(() => {
+                Swal.close();
+
+                Swal.fire({
+                    title: isEditing ? "Editado" : "Guardado",
+                    text: isEditing
+                        ? "El registro se editó correctamente"
+                        : "El registro se guardó correctamente",
+                    icon: "success",
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+            }, 1500);
+        },
+        showLoading() {
+            Swal.fire({
+                title: "Espere por favor",
+                allowOutsideClick: false,
+                onBeforeOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+        },
+        async eliminarBitacora(id) {
+            const { isConfirmed } = await Swal.fire({
+                title: "¿Desea eliminar esta bitacora?",
+                text: "Esta acción no se puede revertir",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Sí, eliminar",
+            });
+            if (isConfirmed) {
+                new Swal({
+                    title: "Espere por favor",
+                    allowOutsideClick: false,
+                });
+                Swal.showLoading();
+                try {
+                    await this.deleteBitacora(id);
+                    Swal.fire(
+                        "Eliminado",
+                        "El registro se eliminó correctamente",
+                        "success"
+                    );
+                } catch (error) {
+                    console.log(error);
+                    Swal.close();
+                }
+            }
+        },
+        async createBitacoraEntry() {
+            await this.createBitacora({
+                ...this.bitacora,
+                email_user: this.usuarioLogueado.userEmail,
+            });
         },
     },
 };

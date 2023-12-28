@@ -47,7 +47,13 @@
                 />
                 <label class="form-check-label" for="estado">Completar</label>
             </div>
-            <button @click="agregarBitacora" type="submit" class="btn btn-primary w-100">Guardar</button>
+            <button
+                @click="agregarBitacora"
+                type="submit"
+                class="btn btn-primary w-100"
+            >
+                {{ isEditar ? "Editar" : "Agregar"  }}
+            </button>
         </form>
     </div>
 </template>
@@ -70,12 +76,15 @@ export default {
             type: Object,
             required: true,
         },
+        isEditar: {
+            type: Boolean,
+            required: true,
+        },
     },
 };
 </script>
 
 <style lang="css" scoped>
-
 .close-icon {
     font-size: 2em;
     color: rgb(78, 78, 201);
@@ -83,7 +92,7 @@ export default {
     transition: color 0.3s ease;
 }
 .close-icon:hover {
-    color: rgb(44, 44, 155); 
+    color: rgb(44, 44, 155);
 }
 .modal {
     position: fixed;

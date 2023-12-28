@@ -31,10 +31,11 @@
                         </div>
                     </td>
                     <td>
-                        <button class="btn btn-primary me-1">
+                        <button @click="editarBitacora(bitacora)" class="btn btn-primary me-1">
                             <i class="fa-solid fa-pen"></i>
+
                         </button>
-                        <button class="btn btn-danger">
+                        <button @click ="eliminarBitacora(bitacora.id)" class="btn btn-danger">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
@@ -52,7 +53,14 @@ export default {
     },
     components: {},
     computed: {},
-    methods: {},
+    methods: {
+        editarBitacora(bitacora) {
+            this.$emit("editar-bitacora", bitacora);
+        },
+        eliminarBitacora(id) {
+            this.$emit("eliminar-bitacora", id);
+        },
+    },
     props: {
         bitacorasFiltradas: {
             type: Array,
