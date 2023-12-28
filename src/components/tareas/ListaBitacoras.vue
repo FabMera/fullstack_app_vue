@@ -1,11 +1,13 @@
 <template>
     <div class="table-responsive">
-        <table class="table">
+        <table
+            class="table table-striped-columns text-center shadow table-hover"
+        >
             <thead>
                 <tr>
                     <th scope="col">Id</th>
-                    <th scope="col">Fecha de Creacion</th>
-                    <th scope="col">Descripcion</th>
+                    <th scope="col">Fecha de Inicio</th>
+                    <th scope="col">Descripcion Tarea</th>
                     <th scope="col">Fecha de Termino</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Acciones</th>
@@ -13,29 +15,33 @@
             </thead>
             <tbody>
                 <tr v-for="bitacora in bitacorasFiltradas" :key="bitacora.id">
-                    <th scope="row">{{ bitacora.id }}</th>
-                    <td>{{ bitacora.date_create }}</td>
-                    <td>{{ bitacora.descripcion }}</td>
-                    <td>{{ bitacora.date_finish }}</td>
-                    <td>
-                        <div class="form-check form-check-inline">
-                            <input
-                                value="completada"
-                                type="checkbox"
-                                id="check-3"
-                                class="form-check-input"
-                            />
-                            <label for="check-3" class="form-check-label"
-                                >Completada</label
-                            >
-                        </div>
+                    <th class="align-middle" scope="row">{{ bitacora.id }}</th>
+                    <td class="align-middle">{{ bitacora.date_create }}</td>
+                    <td class="align-middle">{{ bitacora.descripcion }}</td>
+                    <td class="align-middle">{{ bitacora.date_finish }}</td>
+                    <td class="align-middle">
+                        <span
+                            class="badge rounded-pill bg-success"
+                            v-if="bitacora.estado"
+                            >Completado</span
+                        >
+                        <span class="badge rounded-pill bg-danger" v-else
+                            >Pendiente</span
+                        >
                     </td>
-                    <td>
-                        <button @click="editarBitacora(bitacora)" class="btn btn-primary me-1">
+                    <td class="mx-auto">
+                        <button
+                            @click="editarBitacora(bitacora)"
+                            class="btn ms-1"
+                            title="Editar bitacora"
+                        >
                             <i class="fa-solid fa-pen"></i>
-
                         </button>
-                        <button @click ="eliminarBitacora(bitacora.id)" class="btn btn-danger">
+                        <button
+                            @click="eliminarBitacora(bitacora.id)"
+                            class="btn ms-1"
+                            title="Eliminar bitacora"
+                        >
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
@@ -71,6 +77,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.table {
+    cursor: pointer;
+}
 @media (max-width: 992px) {
     .btn {
         margin-bottom: 2px;

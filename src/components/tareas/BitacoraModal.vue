@@ -1,7 +1,7 @@
 <template>
-    <div class="modal">
-        <form class="w-100">
-            <div class="d-flex justify-content-end mb-3">
+    <div class="modal rounded shadow">
+        <form class="w-100 ">
+            <div class="d-flex justify-content-end mb-3 ">
                 <i
                     @click="cerrarPerfil"
                     class="fa-solid fa-circle-xmark close-icon"
@@ -9,7 +9,7 @@
             </div>
             <div class="mb-3">
                 <label for="date_create" class="form-label"
-                    >Fecha de Creación</label
+                    >Fecha de Inicio</label
                 >
                 <input
                     type="date"
@@ -19,7 +19,7 @@
                 />
             </div>
             <div class="mb-3">
-                <label for="descripcion" class="form-label">Descripción</label>
+                <label for="descripcion" class="form-label">Descripción de la Tarea</label>
                 <textarea
                     class="form-control"
                     id="descripcion"

@@ -167,7 +167,7 @@ export default {
         },
         showLoading() {
             Swal.fire({
-                title: "Espere por favor",
+                title: "Espere por favor...",
                 allowOutsideClick: false,
                 onBeforeOpen: () => {
                     Swal.showLoading();
