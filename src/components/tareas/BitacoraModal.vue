@@ -155,6 +155,5 @@ export default {
     z-index: 2000;
     padding: 10px;
     overflow: hidden;
-    
 }
 </style>
