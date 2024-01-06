@@ -1,5 +1,5 @@
 ### app-modyo
-```
+
 Aplicacion full stack en produccion link : http://login-modyo-vue.s3-website-us-west-1.amazonaws.com/#/
 Despliegue en amazon aws S3
 
@@ -16,8 +16,6 @@ Password :12345,(ambos)
 -El usuario se puede desloguear y las rutas se encuentran protegidas por ende no es posible volver a acceder una vez deslogueado de la aplicación.
 -Las bitácoras o avances agregados se almacenan en una api de  firebase realtime database.
 
-
-```
 
 
 ## Project setup
