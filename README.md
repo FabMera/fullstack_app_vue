@@ -13,8 +13,8 @@ Documentación del frontend :
   si crea un usuario nuevo y se logea aparecerán algunos mensajes informando que no existen datos para mostrar aún,como el perfil,tareas y/o proyectos.
 - A través de una api publica se cargan previamente las tareas y/o proyectos en los cuales están asignados los usuarios,
   podremos visualizar esta información en 2 usuarios de prueba y test creados para este propósito.
-  Usuario : dev1@correoempresa.com y/o dev_front@correoempresa.com (cualquiera de las 2)
-  Password :12345,(ambos)
+  - Usuario : dev1@correoempresa.com y/o dev_front@correoempresa.com (cualquiera de las 2)
+  - Password :12345,(ambos)
 - El usuario puede crear entradas a través de un botón de tipo fixed a la derecha de la pantalla en el menu “bitácoras”,
   donde se abrirá un modal que permite el ingreso de fechas y descripciones,
   el propósito es que el usuario pueda agregar sus avances o recordatorios de tareas que debe cumplir para luego poder completarlas o dejarlas     
