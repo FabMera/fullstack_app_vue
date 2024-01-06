@@ -1,6 +1,7 @@
 ### app-modyo
 ```
 Aplicacion full stack en produccion link : http://login-modyo-vue.s3-website-us-west-1.amazonaws.com/#/
+Despliegue en amazon aws S3
 
 Documentación del frontend :
 Aplicación creada con vue cli y vuejs3 y en el backend con SpringBoot 3.X.X:
