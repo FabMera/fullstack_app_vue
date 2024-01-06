@@ -5,7 +5,7 @@ Despliegue en amazon aws S3
 
 Documentación del frontend :
   Aplicación creada con vue cli y vuejs3 y en el backend con SpringBoot 3.X.X:
-  Permite crear usuarios a través de un formulario de registro que se encuentra validado a través del backend con springboot, 
+- Permite crear usuarios a través de un formulario de registro que se encuentra validado a través del backend con springboot, 
   para validar contraseñas y usuarios no existentes en la base de datos (Postgresql).
 - El email es la restricción de creación de usuarios y es única.
 - A través de un login podemos ingresar a una plataforma y revisar las tareas o proyectos en los cuales estamos asignados 
@@ -16,7 +16,8 @@ Documentación del frontend :
   Usuario : dev1@correoempresa.com y/o dev_front@correoempresa.com (cualquiera de las 2)
   Password :12345,(ambos)
 - El usuario puede crear entradas a través de un botón de tipo fixed a la derecha de la pantalla en el menu “bitácoras”,
-- donde se abrirá un modal que permite el ingreso de fechas y descripciones, el propósito es que el usuario pueda agregar sus avances o recordatorios de tareas que debe cumplir para luego poder completarlas o dejarlas     
+  donde se abrirá un modal que permite el ingreso de fechas y descripciones,
+  el propósito es que el usuario pueda agregar sus avances o recordatorios de tareas que debe cumplir para luego poder completarlas o dejarlas     
   pendientes,eliminarlas,actualizarlas según sea.
 - Es posible acceder a su perfil que también se encuentra cargado de una api una vez que se valide su información.
 - El usuario se puede desloguear y las rutas se encuentran protegidas por ende no es posible volver a acceder una vez deslogueado de la aplicación.
